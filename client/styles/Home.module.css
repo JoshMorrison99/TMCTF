@@ -1,0 +1,28 @@
+.avatar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -120px;
+  margin-top: -250px;
+}
+
+.name {
+  color: rgb(219, 244, 255);
+  text-align: center;
+}
+
+.center {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  margin-left: -130px;
+  margin-top: 10px;
+}
+
+.stacked {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  margin-left: -155px;
+  margin-top: 70px;
+}
