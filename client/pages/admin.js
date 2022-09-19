@@ -25,7 +25,7 @@ export default function SignIn() {
       password: formData.get("password"),
     };
     console.log(data);
-    fetch("http://resume.tm:5000/login", {
+    fetch("http://resume.tm/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -48,7 +48,7 @@ const main = async () => {
 
   addAdmin();
 
-  app.post("/login", (req, res) => {
+  app.post("/api/login", (req, res) => {
     Login(req, res);
   });
 
