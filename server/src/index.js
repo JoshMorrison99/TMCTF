@@ -30,7 +30,7 @@ const main = async () => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // Connect to MongoDB
-  mongoose.connect("mongodb://localhost:27017/trendy", (err) => {
+  mongoose.connect("mongodb://resume.tm:27017/trendy", (err) => {
     if (err) {
       console.log(err.message);
     } else {
@@ -41,7 +41,7 @@ const main = async () => {
   // Cors Configuration
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: "http://resume.tm:3000",
       credentials: true,
     })
   );
