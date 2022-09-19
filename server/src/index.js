@@ -30,7 +30,7 @@ const main = async () => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // Connect to MongoDB
-  mongoose.connect("mongodb://resume.tm:27017/trendy", (err) => {
+  mongoose.connect("mongodb://localhost:27017/trendy", (err) => {
     if (err) {
       console.log(err.message);
     } else {
