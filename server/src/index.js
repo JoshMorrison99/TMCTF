@@ -41,7 +41,7 @@ const main = async () => {
   // Cors Configuration
   app.use(
     cors({
-      origin: "http://resume.tm:3000",
+      origin: "http://portfolio.tm:3000",
       credentials: true,
     })
   );
