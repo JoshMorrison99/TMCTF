@@ -12,7 +12,7 @@ export default function Home() {
       </Box>
       <Box className={styles.center}>
         <Typography variant="h4" className={styles.name}>
-          Rory Underwood
+          Steve Underwood
         </Typography>
       </Box>
       <Stack className={styles.stacked} direction="row" spacing={2}>
