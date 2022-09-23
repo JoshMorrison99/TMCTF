@@ -10,7 +10,7 @@ export default function Home() {
       <Box className={styles.avatar}>
         <Image src="/avatar.png" width={240} height={263} />
       </Box>
-      <Box className={styles.center}>
+      <Box mt={2} className={styles.center}>
         <Typography variant="h4" className={styles.name}>
           Steve Underwood
         </Typography>

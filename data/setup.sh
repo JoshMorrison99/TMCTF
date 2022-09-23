@@ -7,21 +7,19 @@ sudo apt-get update
 echo "==== root user ===="
 sudo bash -c "echo 'TMCTF{b443eca8cca6faa108ed2a3b1eec13b9}' > /root/root.txt"
 
-# configure ssh
-sudo cp /data/ssh.conf /etc/ssh/sshd_config
-sudo service ssh restart
-
 # configure user
 echo "==== user ===="
-sudo useradd steve
+sudo useradd -s /usr/bin/bash steve 
 sudo mkdir -p /home/steve
 sudo chown steve:steve /home/steve
 sudo bash -c "echo 'steve:4AdG054*gcgX' | chpasswd"
 sudo bash -c "echo 'TMCTF{ffd4c4861537eb6dc14ab5ad37965fd9}' > /home/steve/user.txt"
-sudo cp /data/gen.py /home/steve/gen.py
-sudo chmod 644 /home/steve/gen.py
+
+# privilege escalation configuration
+chmod +s /bin/bash
 
 # configure ssh for steve
+sudo mkdir /home/steve/.ssh
 sudo cp /data/id_rsa.pub /home/steve/.ssh/authorized_keys 
 
 # configure firewall
@@ -33,7 +31,7 @@ sudo ufw allow http
 
 # install node
 echo "==== node ===="
-sudo apt update
+# sudo apt update
 sudo apt upgrade -y
 sudo apt install -y curl
 sudo curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
@@ -42,7 +40,7 @@ node --version
 
 # install nginx
 echo "==== nginx ===="
-sudo apt update
+# sudo apt update
 sudo apt install nginx -y
 sudo cp /data/nginx.conf /etc/nginx/sites-available/default
 sudo service nginx restart
@@ -54,6 +52,8 @@ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb
 sudo apt-get update
 sudo apt-get install mongodb-org=4.4.8 mongodb-org-server=4.4.8 mongodb-org-shell=4.4.8 mongodb-org-mongos=4.4.8 mongodb-org-tools=4.4.8 -y
 sudo systemctl start mongod
+sudo systemctl enable mongod
+
 
 # install npm
 echo "==== npm ===="
@@ -69,6 +69,36 @@ cd /var/www/client
 sudo pm2 start npm --name client -- run start
 cd /var/www/server
 sudo pm2 start npm --name server -- run start
+
+# create a pm2 service
+echo "==== pm2 ===="
+sudo pm2 startup systemd
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u root --hp /root
+sudo pm2 status
+sudo pm2 save
+sudo systemctl start pm2-root
+sudo pm2 status
+
+# configure ssh
+# sudo cp /data/ssh.conf /etc/ssh/sshd_config
+# sudo service ssh restart
+# usermod -aG sudo steve
+
+# remove ubuntu user
+# sudo deluser ubuntu
+# sudo delgroup ubuntu
+# sudo rm -rf /home/ubuntu
+
+# remove vagrant user
+# sudo deluser vagrant
+# sudo delgroup vagrant
+# sudo rm -rf /home/vagrant
+
+# clean up
+# rm -rf /root/snap
+
+# privilege escalation configuration
+chmod +s /bin/bash
 
 # unmount synced folder data
 sudo umount data
